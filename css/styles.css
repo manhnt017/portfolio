@@ -1,0 +1,86 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  
+  .fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  #backToTop {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #000;
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 24px;
+    z-index: 999;
+    transition: 0.3s;
+  }
+  
+  #backToTop:hover {
+    background: #333;
+  }
+  
+  .slider-container {
+    max-width: 100%;
+    height: 60vh; /* Điều chỉnh giá trị này nếu cần thiết để slider có chiều cao thích hợp */
+    overflow: hidden;
+  }
+  
+  .slider img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .welcome-message {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 2s ease, visibility 2s ease;
+    z-index: 9999; /* Đảm bảo nó nằm trên tất cả các phần khác */
+  }
+  
+  /* Khi hiển thị */
+  .welcome-message.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Hình ảnh vui nhộn */
+  .funny-image {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 2s ease, visibility 2s ease;
+    z-index: 9999; /* Đảm bảo hình ảnh cũng nằm trên tất cả phần khác */
+  }
+  
+  .funny-image.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  
