@@ -76,4 +76,27 @@ window.addEventListener("load", () => {
     }, 300); // Delay for the fade-out transition
   }, 2000); // 2 seconds delay before hiding
 });
+// lien he
+const form = document.querySelector('form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Lấy giá trị các trường form
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+
+  // Kiểm tra tính hợp lệ
+  if (!name || !phone || !email || !message) {
+    alert("Vui lòng điền đầy đủ thông tin!");
+    return;
+  }
+
+  // Nếu hợp lệ, bạn có thể gửi dữ liệu đi (ví dụ: gửi qua email hoặc API)
+  console.log("Form đã được gửi đi", { name, phone, email, message });
+
+  // Reset form sau khi gửi thành công
+  form.reset();
+});
 
