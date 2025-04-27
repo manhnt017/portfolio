@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
 
+
     <style>
       html {
         scroll-behavior: smooth;
@@ -57,66 +58,146 @@
         transition: all 0.3s ease;
       }
       .welcome-message {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 20px 40px;
-    border-radius: 10px;
-    font-size: 24px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 2s ease, visibility 2s ease;
-    z-index: 9999; /* Đảm bảo nó nằm trên tất cả các phần khác */
-  }
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 10px;
+        font-size: 24px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 2s ease, visibility 2s ease;
+        z-index: 9999; /* Đảm bảo nó nằm trên tất cả các phần khác */
+      }
 
-  /* Khi hiển thị */
-  .welcome-message.show {
-    opacity: 1;
-    visibility: visible;
-  }
+      /* Khi hiển thị */
+      .welcome-message.show {
+        opacity: 1;
+        visibility: visible;
+      }
 
-  /* Hình ảnh vui nhộn */
-  .funny-image {
-    position: fixed;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 2s ease, visibility 2s ease;
-    z-index: 9999; /* Đảm bảo hình ảnh cũng nằm trên tất cả phần khác */
-  }
+      /* Hình ảnh vui nhộn */
+      .funny-image {
+        position: fixed;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 2s ease, visibility 2s ease;
+        z-index: 9999; /* Đảm bảo hình ảnh cũng nằm trên tất cả phần khác */
+      }
 
-  .funny-image.show {
-    opacity: 1;
-    visibility: visible;
-  }
+      .funny-image.show {
+        opacity: 1;
+        visibility: visible;
+      }
     </style>
   </head>
 
   <body class="bg-gray-50 text-gray-800 font-sans">
+   <!-- Navbar -->
+<nav class="bg-gray-100 py-4 shadow-sm">
+  <div class="container mx-auto flex justify-between items-center px-6">
+    <!-- Logo -->
+    <div class="text-2xl font-bold">
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <img class="w-10 h-10" src="./logo.png" alt="logo">
+      </a>
+    </div>
+
+    <!-- Các liên kết trên desktop -->
+    <div class="space-x-6 flex hidden md:flex">
+      <section id="cv" class="fade-in">
+        <a
+          style="color: #000"
+          href="./Manh_CV_Intern_FE.pdf"
+          target="_blank"
+          class="text-gray-700 hover:text-black transition"
+        >CV</a>
+      </section>
+      <section id="about" class="fade-in">
+        <a
+          href="./about.html"
+          class="text-gray-700 hover:text-black transition"
+        >About Us</a>
+      </section>
+    </div>
+
+    <!-- Nút hamburger cho màn hình nhỏ -->
+    <div class="md:hidden">
+      <button id="hamburger" class="text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu hiển thị khi bấm vào nút hamburger -->
+  <div id="menu" class="hidden md:hidden bg-gray-100 py-4 px-6 space-y-4">
+    <section id="cv">
+      <a
+        style="color: #000"
+        href="./Manh_CV_Intern_FE.pdf"
+        target="_blank"
+        class="text-gray-700 hover:text-black transition"
+      >CV</a>
+    </section>
+    <section id="about">
+      <a
+        href="#about"
+        class="text-gray-700 hover:text-black transition"
+      >About Us</a>
+    </section>
+  </div>
+</nav>
+
     <!-- Nút lên đầu trang -->
     <button id="backToTop" onclick="scrollToTop()">↑</button>
     <div id="welcomeMessage" class="welcome-message">
-        <h2>Chào mừng bạn đến với trang web của tôi!</h2>
-      </div>
-      
-      <!-- Hình ảnh vui nhộn -->
-      <div id="funnyImage" class="funny-image">
-        <img src="./helloworld.jpg" alt="Hình ảnh vui nhộn" class="w-full h-auto">
-      </div>
-      
+      <h2 style="text-align: center">Welcome to website for me</h2>
+    </div>
+
+    <!-- Hình ảnh vui nhộn -->
+    <!-- <div id="funnyImage" class="funny-image">
+      <img
+        src="./helloworld.jpg"
+        alt="Hình ảnh vui nhộn"
+        class="w-full h-auto"
+      />
+    </div> -->
 
     <!-- Header -->
     <header class="bg-white shadow-md py-10 text-center">
-      <img
-        src="./manhdz.jpg"
-        alt="Ảnh đại diện"
-        class="w-32 h-32 mx-auto rounded-full border-4 border-gray-300 mb-6"
-      />
+      <div x-data="{ open: false }" class="relative">
+        <!-- Ảnh nhỏ (avatar) -->
+        <img
+          src="./manhdz.jpg"
+          alt="Ảnh đại diện"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-gray-300 mb-6 cursor-pointer"
+          @click="open = true"
+        />
+      
+        <!-- Modal nền tối + ảnh to -->
+        <div
+        x-show="open"
+        @click="open = false"
+        @keydown.escape.window="open = false"
+        class="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50 transition-opacity"
+        style="display: none;"
+      >
+        <img
+          src="./manhdz1.png"
+          alt="Ảnh đại diện lớn"
+          class="max-w-full max-h-[90vh] rounded-xl shadow-2xl cursor-default"
+          @click.stop
+        />
+      </div>
+      </div>
+      
+      
       <h1 class="text-5xl font-bold">Nguyễn Tiến Mạnh</h1>
       <p class="text-gray-500 mt-2">Sinh viên Cao đẳng FPT</p>
 
@@ -198,9 +279,7 @@
           <div>
             <p><strong>CCCD:</strong> 017204004436</p>
             <p><strong>Điện thoại:</strong> 0835 171 738</p>
-            <p>
-              <strong>Trình độ học vấn:</strong> Chuẩn bị tốt nghiệp Cao đẳng
-            </p>
+            <p><strong>Trình độ học vấn:</strong> Cao đẳng</p>
           </div>
         </div>
       </section>
@@ -265,7 +344,7 @@
         </h2>
 
         <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>Cơ bản về phát triển website</li>
+          <li>Cơ bản về thiết kế website</li>
           <li>Tự học, tìm kiếm thông tin</li>
         </ul>
       </section>
@@ -291,12 +370,11 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t mt-10 py-6 text-center text-gray-500 relative">
-        <p>© 2025 Nguyễn Tiến Mạnh</p>
-        <a href="./Manh_CV_Intern_FE.pdf" target="_blank" class="absolute bottom-4 right-4 text-blue-600 hover:underline">
-          Xem CV của tôi
-        </a>
-      </footer>
+    <footer
+      class="bg-white border-t mt-10 py-6 text-center text-gray-500 relative"
+    >
+      <p>© 2025 Nguyễn Tiến Mạnh</p>
+    </footer>
 
     <!-- Script -->
     <script>
@@ -341,21 +419,27 @@
         heart.classList.toggle("text-red-500"); // Chuyển thành tim đỏ
         heart.classList.toggle("text-gray-500"); // Quay lại màu xám nếu bấm lần nữa
       });
-      window.addEventListener('load', function() {
-    const welcomeMessage = document.getElementById('welcomeMessage');
-    const funnyImage = document.getElementById('funnyImage');
+      window.addEventListener("load", function () {
+        const welcomeMessage = document.getElementById("welcomeMessage");
+        const funnyImage = document.getElementById("funnyImage");
 
-    // Hiển thị chào mừng và hình ảnh sau khi trang tải
-    setTimeout(function() {
-      welcomeMessage.classList.add('show');
-      funnyImage.classList.add('show');
-    }, 500); // Chờ 500ms trước khi hiển thị
+        // Hiển thị chào mừng và hình ảnh sau khi trang tải
+        setTimeout(function () {
+          welcomeMessage.classList.add("show");
+          funnyImage.classList.add("show");
+        }, 500); // Chờ 500ms trước khi hiển thị
 
-    // Ẩn thông báo chào mừng và hình ảnh sau 4s
-    setTimeout(function() {
-      welcomeMessage.classList.remove('show');
-      funnyImage.classList.remove('show');
-    }, 4500);
+        // Ẩn thông báo chào mừng và hình ảnh sau 4s
+        setTimeout(function () {
+          welcomeMessage.classList.remove("show");
+          funnyImage.classList.remove("show");
+        }, 4500);
+      });
+      const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
+
+  hamburger.addEventListener('click', () => {
+    menu.classList.toggle('hidden'); // Chuyển đổi giữa ẩn và hiện menu
   });
     </script>
   </body>
